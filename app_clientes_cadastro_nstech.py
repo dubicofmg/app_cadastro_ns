@@ -2,11 +2,11 @@ import streamlit as st
 import pandas as pd
 import os
 
-st.write("Diretório de trabalho atual:", os.getcwd())
+#st.write("Diretório de trabalho atual:", os.getcwd())
 # Carregando os dados
 df = pd.read_excel("Fonte_bi_clientes_cadastro.xlsx")
 
-st.title("Dashboard Interativo")
+st.title("Clientes Cadastro Nstech")
 
 # Cria filtros para cada coluna desejada
 col1, col2, col3, col4, col5 = st.columns(5)
