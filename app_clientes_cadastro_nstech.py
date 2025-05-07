@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Carregando os dados
-df = pd.read_excel("C:/Users/JoãoPedroBrasildeAra/OneDrive - NSTECH GR LTDA/Main/Base Clientes Nstech - Cadastro/Fonte_bi_clientes_cadastro.xlsx")  # ou csv, ou qualquer origem
+df = pd.read_excel("Fonte_bi_clientes_cadastro.xlsx")
 
 st.title("Dashboard Interativo")
 
