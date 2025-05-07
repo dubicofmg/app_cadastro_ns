@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
+import os
 
+st.write("Diretório de trabalho atual:", os.getcwd())
 # Carregando os dados
 df = pd.read_excel("Fonte_bi_clientes_cadastro.xlsx")
 
