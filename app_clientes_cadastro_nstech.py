@@ -43,4 +43,4 @@ if filtro_emp:
 #df_filtrado = df_filtrado.drop(df_filtrado.columns[[4,5,6,7,8,9]], axis=1)
 
 # Mostra o resultado
-st.dataframe(df_filtrado, use_container_width=True)
+st.dataframe(df_filtrado.head(5), use_container_width=True)
