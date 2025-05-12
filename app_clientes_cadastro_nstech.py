@@ -1,9 +1,7 @@
 import streamlit as st
 import pandas as pd
-import os
+from st_aggrid import AgGrid, GridOptionsBuilder
 
-#st.write("Diretório de trabalho atual:", os.getcwd())
-# Carregando os dados
 df = pd.read_excel("Fonte_bi_clientes_cadastro.xlsx")
 
 st.title("Clientes Cadastro Nstech")
@@ -44,4 +42,18 @@ if filtro_emp:
 
 # Mostra o resultado
 #st.dataframe(df_filtrado.head(5), use_container_width=True)
-st.table(df_filtrado.head(5))
+#st.table(df_filtrado.head(5))
+
+# Configura a AgGrid para mostrar só 5 linhas, sem rolagem
+df_limite = df_filtrado.head(5)
+
+gb = GridOptionsBuilder.from_dataframe(df_limite)
+gb.configure_grid_options(domLayout='normal', paginationAutoPageSize=False, suppressHorizontalScroll=True)
+grid_options = gb.build()
+
+AgGrid(
+    df_limite,
+    gridOptions=grid_options,
+    height=250,  # ajusta a altura exata para caber 5 linhas sem scroll
+    fit_columns_on_grid_load=True
+)
