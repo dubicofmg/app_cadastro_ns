@@ -54,6 +54,6 @@ grid_options = gb.build()
 AgGrid(
     df_limite,
     gridOptions=grid_options,
-    height=250,  # ajusta a altura exata para caber 5 linhas sem scroll
+    height=200,  # ajusta a altura exata para caber 5 linhas sem scroll
     fit_columns_on_grid_load=True
 )
