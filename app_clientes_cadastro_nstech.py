@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from st_aggrid import AgGrid, GridOptionsBuilder
 
 df = pd.read_excel("Fonte_bi_clientes_cadastro.xlsx")
 
@@ -38,22 +37,13 @@ if filtro_dom:
 if filtro_emp:
     df_filtrado = df_filtrado[df_filtrado["Tipo Intersecção"].astype(str).isin(filtro_emp)]
 
-#df_filtrado = df_filtrado.drop(df_filtrado.columns[[4,5,6,7,8,9]], axis=1)
-
-# Mostra o resultado
-#st.dataframe(df_filtrado.head(5), use_container_width=True)
-#st.table(df_filtrado.head(5))
-
-# Configura a AgGrid para mostrar só 5 linhas, sem rolagem
+# Limita visualização a 5 linhas
 df_limite = df_filtrado.head(5)
 
-gb = GridOptionsBuilder.from_dataframe(df_limite)
-gb.configure_grid_options(domLayout='normal', paginationAutoPageSize=False, suppressHorizontalScroll=True)
-grid_options = gb.build()
-
-AgGrid(
+# Exibe a tabela em modo leitura, permitindo copiar
+st.data_editor(
     df_limite,
-    gridOptions=grid_options,
-    height=185,  # ajusta a altura exata para caber 5 linhas sem scroll
-    fit_columns_on_grid_load=True
+    use_container_width=True,
+    height=240,  # ajuste de altura para 5 linhas
+    disabled=True  # impede edição, mas permite cópia
 )
