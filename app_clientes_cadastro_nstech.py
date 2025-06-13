@@ -35,7 +35,8 @@ authenticator = stauth.Authenticate(
 # ==========================
 # TELA DE LOGIN
 # ==========================
-name, auth_status, username = authenticator.login("Login", "main")
+name, auth_status, username = authenticator.login(location="main", form_name="Login")
+
 
 if auth_status is False:
     st.error("Usuário ou senha inválidos.")
