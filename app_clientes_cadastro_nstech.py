@@ -12,7 +12,7 @@ usernames = ['admin']
 # Gere o hash da sua senha original com:
 # from streamlit_authenticator import Hasher
 # print(Hasher(['sua_senha']).generate())
-# Aqui vamos usar um hash exemplo de "senha123"
+# 
 hashed_passwords = [
     '$2b$12$WdfAoWOO07nDq/3T62btkOqsUSIweWlfYow4fwCWz6znKf84GyAUS'
 ]
@@ -35,7 +35,8 @@ authenticator = stauth.Authenticate(
 # ==========================
 # TELA DE LOGIN
 # ==========================
-name, auth_status, username = authenticator.login(location="main", form_name="Login")
+name, auth_status, username = authenticator.login(location="sidebar", form_name="Login")
+
 
 
 if auth_status is False:
