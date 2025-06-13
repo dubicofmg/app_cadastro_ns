@@ -2,4 +2,4 @@
 pandas
 openpyxl
 streamlit-aggrid
-streamlit-authenticator>=0.2.2
+streamlit-authenticator>=0.4.2
