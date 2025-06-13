@@ -1,5 +1,3 @@
 
 pandas
-openpyxl
-streamlit-aggrid
 streamlit-authenticator>=0.4.2
