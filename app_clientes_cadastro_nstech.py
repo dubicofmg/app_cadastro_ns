@@ -38,7 +38,8 @@ authenticator = stauth.Authenticate(
 # ==========================
 # TELA DE LOGIN
 # ==========================
-name, auth_status, username = authenticator.login("Login", "main", "admin")
+authenticator.login(location="sidebar", form_name="Login")
+
 
 
 
