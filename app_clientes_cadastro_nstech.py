@@ -30,7 +30,9 @@ with col5:
 df_filtrado = df.copy()
 
 if filtro_cliente:
-    df_filtrado = df_filtrado[df_filtrado["NOME_CLIENTE"].isin(filtro_cliente)]
+    df_filtrado = df_filtrado[
+        df_filtrado["NOME_CLIENTE"].str.lower().isin([nome.lower() for nome in filtro_cliente])
+    ]
 if filtro_cnpj:
     df_filtrado = df_filtrado[df_filtrado["CNPJ_CLIENTE"].isin(filtro_cnpj)]
 if filtro_raiz:
