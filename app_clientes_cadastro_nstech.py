@@ -3,6 +3,9 @@ import pandas as pd
 
 df = pd.read_excel("Fonte_bi_clientes_cadastro.xlsx")
 
+# Garante que o CNPJ fique com 14 dígitos, mesmo com zeros à esquerda
+df["CNPJ_CLIENTE"] = df["CNPJ_CLIENTE"].astype(str).str.zfill(14)
+
 st.title("Clientes Cadastro Nstech")
 
 # Cria filtros para cada coluna desejada
@@ -44,6 +47,6 @@ df_limite = df_filtrado.head(5)
 st.data_editor(
     df_limite,
     use_container_width=True,
-    height=240,  # ajuste de altura para 5 linhas
-    disabled=True  # impede edição, mas permite cópia
+    height=240,
+    disabled=True
 )
