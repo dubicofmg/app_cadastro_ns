@@ -4,6 +4,19 @@ from cryptography.fernet import Fernet
 import os
 import io
 
+def login():
+    senha = st.text_input("Digite a senha", type="password")
+    
+    if senha == st.secrets["SENHA_ACESSO"]
+        st.session_state["logado"] = True
+    else:
+        st.warning("Senha incorreta")
+        st.stop()
+
+if "logado" not in st.session_state:
+    login()
+
+
 # ======================
 # 🔐 CARREGAR CHAVE SEGURA
 # ======================
