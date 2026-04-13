@@ -3,19 +3,36 @@ import pandas as pd
 from cryptography.fernet import Fernet
 import os
 import io
+from streamlit_cookies_manager import EncryptedCookieManager
 
-def login():
-    senha = st.text_input("Digite a senha", type="password")
+# ======================
+# 🔐 COOKIE MANAGER
+# ======================
+cookies = EncryptedCookieManager(
+    prefix="meu_app",
+    password=st.secrets["COFRE_KEY"]  # usa sua chave
+)
 
-    contrasenha = st.secrets["SENHA_ACESSO"]
-    if senha == contrasenha:
+if not cookies.ready():
+    st.stop()
+
+# ======================
+# 🔐 LOGIN
+# ======================
+if "logado" not in st.session_state:
+    if cookies.get("logado") == "true":
         st.session_state["logado"] = True
     else:
-        st.warning("Senha incorreta")
-        st.stop()
+        contrasenha = st.secrets["SENHA_ACESSO"]:
+        senha = st.text_input("Senha", type="password")
 
-if "logado" not in st.session_state:
-    login()
+        if senha == contrasenha:
+            st.session_state["logado"] = True
+            cookies["logado"] = "true"
+            cookies.save()
+            st.rerun()
+        else:
+            st.stop()
 
 
 # ======================
