@@ -7,7 +7,7 @@ import io
 # ======================
 # 🔐 CARREGAR CHAVE SEGURA
 # ======================
-key = 'sISUb6sZ6XNSTEx1MVYQ1ZAVmxEwqWLk3ZrRgBtR1WQ='
+key = st.secrets["COFRE_KEY"]
 
 if not key:
     st.error("Chave de criptografia não encontrada!")
