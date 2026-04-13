@@ -7,7 +7,7 @@ import io
 # ======================
 # 🔐 CARREGAR CHAVE SEGURA
 # ======================
-key = b'sISUb6sZ6XNSTEx1MVYQ1ZAVmxEwqWLk3ZrRgBtR1WQ='
+key = 'sISUb6sZ6XNSTEx1MVYQ1ZAVmxEwqWLk3ZrRgBtR1WQ='
 
 if not key:
     st.error("Chave de criptografia não encontrada!")
