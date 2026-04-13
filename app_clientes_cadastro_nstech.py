@@ -23,7 +23,7 @@ if "logado" not in st.session_state:
     if cookies.get("logado") == "true":
         st.session_state["logado"] = True
     else:
-        contrasenha = st.secrets["SENHA_ACESSO"]:
+        contrasenha = st.secrets["SENHA_ACESSO"]
         senha = st.text_input("Senha", type="password")
 
         if senha == contrasenha:
