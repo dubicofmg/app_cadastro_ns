@@ -2,7 +2,6 @@ streamlit
 pandas
 openpyxl
 streamlit-aggrid
-cryptography.fernet
+cryptography
 streamlit-authenticator>=0.4.2
-io
 
