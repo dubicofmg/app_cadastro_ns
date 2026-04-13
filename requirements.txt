@@ -3,5 +3,6 @@ pandas
 openpyxl
 streamlit-aggrid
 cryptography
+streamlit_cookies_manager
 streamlit-authenticator>=0.4.2
 
