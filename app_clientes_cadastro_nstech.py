@@ -1,18 +1,47 @@
 import streamlit as st
 import pandas as pd
+from cryptography.fernet import Fernet
+import os
+import io
 
-# Carrega o DataFrame
-df = pd.read_excel("Fonte_bi_clientes_cadastro.xlsx")
+# ======================
+# 🔐 CARREGAR CHAVE SEGURA
+# ======================
+key = b'sISUb6sZ6XNSTEx1MVYQ1ZAVmxEwqWLk3ZrRgBtR1WQ='
 
-# Ajusta o campo CNPJ para string com 14 dígitos (com zeros à esquerda)
+if not key:
+    st.error("Chave de criptografia não encontrada!")
+    st.stop()
+
+fernet = Fernet(key.encode())
+
+# ======================
+# 🔓 DESCRIPTOGRAFAR BASE
+# ======================
+try:
+    with open("base.enc", "rb") as f:
+        encrypted = f.read()
+
+    decrypted = fernet.decrypt(encrypted)
+
+    df = pd.read_excel(io.BytesIO(decrypted))
+
+except Exception:
+    st.error("Erro ao descriptografar a base. Verifique a chave.")
+    st.stop()
+
+# ======================
+# AJUSTES
+# ======================
 df["CNPJ_CLIENTE"] = df["CNPJ_CLIENTE"].astype(str).str.zfill(14)
 
 st.title("Clientes Cadastro Nstech")
 
-# Cria filtros para cada coluna desejada
+# ======================
+# FILTROS (igual ao seu)
+# ======================
 col1, col2, col3, col4, col5 = st.columns(5)
 
-# ======== Filtro Nome Cliente (com busca case-insensitive) ========
 nomes_originais = df["NOME_CLIENTE"].dropna().unique()
 nomes_mapeados = {nome.lower(): nome for nome in nomes_originais}
 
@@ -23,23 +52,18 @@ with col1:
         format_func=lambda x: nomes_mapeados[x]
     )
 
-# ======== Filtro CNPJ (com zeros à esquerda) ========
 with col2:
     filtro_cnpj = st.multiselect("CNPJ", df["CNPJ_CLIENTE"].unique())
 
-# ======== Filtro Raiz ========
 with col3:
     filtro_raiz = st.multiselect("Raiz", df["raiz"].astype(str).unique())
 
-# ======== Filtro Domínio ========
 with col4:
     filtro_dom = st.multiselect("Domínio", df["Emails"].unique())
 
-# ======== Filtro Tipo Intersecção ========
 with col5:
     filtro_emp = st.multiselect("Tipo intersecção", df["Tipo Intersecção"].astype(str).unique())
 
-# Aplicando os filtros
 df_filtrado = df.copy()
 
 if filtro_cliente_lower:
@@ -58,13 +82,11 @@ if filtro_dom:
 if filtro_emp:
     df_filtrado = df_filtrado[df_filtrado["Tipo Intersecção"].astype(str).isin(filtro_emp)]
 
-# Limita visualização a 5 linhas
 df_limite = df_filtrado.head(5)
 
-# Exibe a tabela em modo leitura, permitindo copiar
 st.data_editor(
     df_limite,
     use_container_width=True,
-    height=240,  # ajuste de altura para 5 linhas
-    disabled=True  # impede edição, mas permite cópia
+    height=240,
+    disabled=True
 )
